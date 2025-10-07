@@ -1,0 +1,9 @@
+.logo {
+  position: fixed;      /* stays put when scrolling */
+  bottom: 10px;         /* distance from bottom */
+  right: 10px;          /* distance from right */
+  width: 50%;         /* adjust size */
+  /* opacity: 0.2;          optional, make it watermark-like */
+  z-index: -1;          /* put behind other elements */
+  pointer-events: none; /* so it won't block clicks */
+}
