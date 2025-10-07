@@ -82,3 +82,63 @@ if (document.readyState === 'loading') {
 }
 
 // (Valgfritt) hvis du vil oppdatere ved midnatt uten reload, kan vi sette en timer senere.
+
+// Hjelpere
+function monthName(date, locale = "en-US") {
+  return new Intl.DateTimeFormat(locale, { month: "long" }).format(date);
+}
+function weekdayName(date, locale = "en-US") {
+  return new Intl.DateTimeFormat(locale, { weekday: "long" }).format(date);
+}
+function ordinal(n) {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+function shiftMonth(date, delta) {
+  const d = new Date(date);
+  d.setMonth(d.getMonth() + delta);
+  return d;
+}
+
+function renderTitle() {
+  const el = document.getElementById("title");
+  if (!el) return;
+
+  const now = new Date();
+  const day = now.getDate(); // 1..31
+
+  const thisMonth = monthName(now);                 // "February"
+  const prevMonth = monthName(shiftMonth(now, -1)); // "January"
+  const nextMonth = monthName(shiftMonth(now, +1)); // "March"
+
+  // PHP-logikken:
+  // $month = "<span class='big-month'>F</span>"
+  // if (day > 15) echo month + small(nextMonth)
+  // else          echo small(prevMonth) + month
+  let monthLine = "";
+  if (day > 15) {
+    monthLine =
+      `<span class="big-month">${thisMonth}</span> ` +
+      `<span class="small-month">${nextMonth}</span>`;
+  } else {
+    monthLine =
+      `<span class="small-month">${prevMonth}</span> ` +
+      `<span class="big-month">${thisMonth}</span>`;
+  }
+
+  const dateLine = `${weekdayName(now)} ${ordinal(day)}`;
+
+  el.innerHTML = `
+     <span class="brand">Weekly by Hawk</span><br/>
+    ${monthLine}<br/>
+    <span class="date-line">${dateLine}</span>
+  `;
+}
+
+// Kjør når DOM er klar
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", renderTitle);
+} else {
+  renderTitle();
+}

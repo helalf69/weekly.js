@@ -2,6 +2,14 @@ html, body {
   min-height: 100%;
 }
 
+div, .login {
+    background-color: rgba(250, 230, 190, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #569;
+    margin: 10px;
+}
+
 .bg {
   position: fixed;
   inset: 0;              /* top:0; right:0; bottom:0; left:0 */
@@ -23,6 +31,10 @@ html, body {
     linear-gradient(to left,  var(--right-color), transparent var(--right-width));
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  padding: 0px;
+  border: 0px;
+  border-radius: 0px;
+  margin: 0px;
 }
 
 .logo {
@@ -33,4 +45,36 @@ html, body {
   /* opacity: 0.2;          optional, make it watermark-like */
   z-index: -1;          /* put behind other elements */
   pointer-events: none; /* so it won't block clicks */
+}
+
+.title {
+  text-align: center;
+  margin: 16px auto 8px;
+  font-family: system-ui, sans-serif;
+  line-height: 1.25;
+  font-size: 2em;
+}
+
+.title .brand {
+  display: inline;
+  font-size: 150%;   /* gjør større – prøv 150–250% etter smak */
+  font-weight: 700;  /* ekstra tykk */
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.title .big-month {
+  font-size: 125%;
+  font-weight: 800;
+}
+
+.title .small-month {
+  font-size: 65%;
+  opacity: 0.85;
+}
+
+.title .date-line {
+  display: block;
+  margin-top: 4px;
+  font-weight: 500;
 }
