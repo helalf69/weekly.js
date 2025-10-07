@@ -1,3 +1,30 @@
+html, body {
+  min-height: 100%;
+}
+
+.bg {
+  position: fixed;
+  inset: 0;              /* top:0; right:0; bottom:0; left:0 */
+  z-index: -1;           /* bak alt annet */
+  pointer-events: none;
+
+  /* Vi bruker CSS-variabler som JS skal sette senere */
+  --left-color: transparent;
+  --current-color: #ffffff;
+  --right-color: transparent;
+
+  --left-width: 0%;      /* hvor langt venstre-fade strekker seg inn */
+  --right-width: 0%;     /* hvor langt høyre-fade strekker seg inn */
+
+  /* 3 lag: venstre fade, grunnfarge (midt), høyre fade */
+  background-image:
+    linear-gradient(to right, var(--left-color), transparent var(--left-width)),
+    linear-gradient(var(--current-color), var(--current-color)),
+    linear-gradient(to left,  var(--right-color), transparent var(--right-width));
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
 .logo {
   position: fixed;      /* stays put when scrolling */
   bottom: 10px;         /* distance from bottom */
