@@ -10,6 +10,11 @@ div, .login {
     margin: 10px;
 }
 
+a {
+    color: #275;
+    text-decoration: none;
+}
+
 .bg {
   position: fixed;
   inset: 0;              /* top:0; right:0; bottom:0; left:0 */
@@ -75,4 +80,9 @@ div, .login {
 .title .date-line {
   margin-top: 4px;
   font-weight: 500;
+}
+
+.userbar {
+    text-align: right;
+    padding-right: 15px;
 }
