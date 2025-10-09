@@ -86,3 +86,9 @@ a {
     text-align: right;
     padding-right: 15px;
 }
+
+.user-info {
+  background-color: rgba(1,1,1,0);
+  border: 0px;
+  border-radius: 0px;
+}

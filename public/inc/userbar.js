@@ -2,22 +2,24 @@ async function checkUser() {
   const res = await fetch('/api/user');
   const data = await res.json();
 
-  const loginForm = document.getElementById('loginForm');
-  const userInfo = document.getElementById('user-info');
-  const userName = document.getElementById('user-name');
+  const form = document.getElementById('loginForm');
+  const info = document.getElementById('user-info');
+  const name = document.getElementById('user-name');
 
   if (data.username) {
-    // bruker er logget inn
-    loginForm.style.display = 'none';
-    userInfo.style.display = 'inline';
-    userName.textContent = data.username;
+    // bruker er logget inn → vis info, skjul form
+    form.style.display = 'none';
+    info.style.display = 'inline';
+    name.textContent = data.username;
   } else {
-    // ingen bruker i session
-    loginForm.style.display = 'inline';
-    userInfo.style.display = 'none';
+    // ingen bruker i session → vis form, skjul info
+    form.style.display = 'inline';
+    info.style.display = 'none';
+    name.textContent = '';
   }
 }
 
+// kjør når siden er lastet
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', checkUser);
 } else {
