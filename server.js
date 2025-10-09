@@ -18,6 +18,7 @@ const session = require('express-session');
 const path = require('path');
 const app = express();
 const port = 3000;
+const { init, run, get } = require('./priv/db.js');
 
 // Middleware: for å tolke data fra forms (POST)
 app.use(express.urlencoded({ extended: true }));
@@ -56,3 +57,7 @@ app.get('/api/user', (req, res) => {
 app.listen(port, () => {
   console.log(`Weekly app running at http://localhost:${port}`);
 });
+
+(async () => {
+  await init();
+})();
