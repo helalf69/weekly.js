@@ -54,6 +54,47 @@ app.get('/api/user', (req, res) => {
   res.json({ username: req.session.username || null });
 });
 
+app.post('/api/register', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password)
+      return res.status(400).send('Mangler brukernavn eller passord');
+
+    const exists = await get('SELECT IDuser FROM Users WHERE Uname = ?', [username]);
+    if (exists)
+      return res.status(409).send('Brukernavn finnes allerede');
+
+    const hash = await bcrypt.hash(password, 12);
+    const result = await run(
+      'INSERT INTO Users (Uname, Upassword) VALUES (?, ?)',
+      [username, hash]
+    );
+
+    res.send(`Bruker registrert med ID ${result.lastID}`);
+  } catch (err) {
+    console.error('Register-feil:', err);
+    res.status(500).send('Feil ved registrering');
+  }
+});
+/*
+(Valgfritt) test-innlogging:
+app.post('/api/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const row = await get('SELECT * FROM Users WHERE Uname = ?', [username]);
+    if (!row) return res.status(401).send('Feil brukernavn/passord');
+
+    const ok = await bcrypt.compare(password, row.Upassword);
+    if (!ok) return res.status(401).send('Feil brukernavn/passord');
+
+    res.send(`Logget inn som ${row.Uname}`);
+  } catch (err) {
+    console.error('Login-feil:', err);
+    res.status(500).send('Feil ved innlogging');
+  }
+});
+*/
+
 app.listen(port, () => {
   console.log(`Weekly app running at http://localhost:${port}`);
 });
